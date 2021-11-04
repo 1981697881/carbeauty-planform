@@ -53,13 +53,13 @@ export default {
       this.$emit('uploadList')
     },
     del() {
-      if (this.clickData.playId) {
-        this.$confirm('是否删除(' + this.clickData.playName + ')，删除后将无法恢复?', '提示', {
+      if (this.clickData.id) {
+        this.$confirm('是否删除(' + this.clickData.cosmetologyPoject + ')，删除后将无法恢复?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$emit('del', {playId :this.clickData.playId})
+          this.$emit('del', {id :this.clickData.id})
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -74,7 +74,7 @@ export default {
       }
     },
     handlerAlter() {
-      if (this.clickData.playId) {
+      if (this.clickData.id) {
         this.$emit('showDialog', this.clickData)
       } else {
         this.$message({

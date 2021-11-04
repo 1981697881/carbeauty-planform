@@ -138,7 +138,14 @@ export const StaticRouterMap = [{
         meta: {
           title: '会员信息'
         },
-      },  {
+      }, {
+        path: 'memberCard',
+        component: () => import('@/views/member/memberCard/index'),
+        name: 'MemberCard',
+        meta: {
+          title: '会员卡信息'
+        },
+      }, {
         path: 'recharge',
         component: () => import('@/views/member/recharge/index'),
         name: 'Recharge',
@@ -169,7 +176,8 @@ export const StaticRouterMap = [{
       meta: {
         title: '用户管理'
       },
-    },{
+    },
+     /* {
       path: 'paylog',
       component: () => import('@/views/system/paylog/index'),
       name: 'Paylog',
@@ -183,7 +191,8 @@ export const StaticRouterMap = [{
       meta: {
         title: '微信支付日志'
       },
-    },{
+    },*/
+      {
       path: 'about',
       component: () => import('@/views/system/about/index'),
       name: 'About',

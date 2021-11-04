@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getOrderList} from "@/api/member/index";
+import { getVipList,delClerk} from "@/api/member/index";
 import List from "@/components/List";
 
 export default {
@@ -33,13 +33,11 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "消费时间", name: "createDate" },
-        { text: "车牌", name: "carNumber" },
-        { text: "客户手机", name: "phoneNumber" },
-        { text: "客户名称", name: "wechatName" },
-        { text: "操作人员", name: "employeeName" },
-        { text: "美容项目", name: "cosmetologyName" },
-        { text: "费用", name: "settlementPrice" },
+        { text: "会员卡号", name: "" },
+        { text: "会员名称", name: "vipName" },
+        { text: "微信号", name: "wechatId" },
+        { text: "联系电话", name: "phoneNumber" },
+        { text: "余额", name: "balance" },
       ]
     };
   },
@@ -47,28 +45,28 @@ export default {
       //监听每页显示几条
       handleSize(val) {
           this.list.size = val
-        this.$emit('uploadList')
+          this.$emit('uploadList')
       },
       //监听当前页
       handleCurrent(val) {
           this.list.current = val
-        this.$emit('uploadList')
+          this.$emit('uploadList')
       },
     dblclick(obj) {
-      this.$emit('showDialog', obj.row)
+        this.$emit('showDialog', obj.row)
     },
-    Delivery(val) {
-      delSupplier(val).then(res => {
-        if(res.flag){
-          this.$store.dispatch("list/setClickData", '');
-          this.fetchData();
-        }
-      });
-    },
-    //监听单击某一行
-    rowClick(obj) {
-      this.$store.dispatch("list/setClickData", obj.row);
-    },
+      Delivery(val) {
+          delClerk(val).then(res => {
+              if(res.flag){
+                this.$store.dispatch("list/setClickData", '');
+                this.fetchData()
+              }
+          });
+      },
+      //监听单击某一行
+      rowClick(obj) {
+          this.$store.dispatch("list/setClickData", obj.row);
+      },
     uploadPr(val) {
       this.fetchData(val,{
         pageNum: 1,
@@ -80,7 +78,7 @@ export default {
       pageSize: this.list.size || 50
     }) {
       this.loading = true;
-      getOrderList(data, val).then(res => {
+      getVipList(data, val).then(res => {
         this.loading = false;
         this.list = res.data;
       });

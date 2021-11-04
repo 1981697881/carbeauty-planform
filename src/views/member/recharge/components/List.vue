@@ -33,6 +33,8 @@ export default {
       loading: false,
       list: {},
       columns: [
+        { text: "客户手机", name: "phoneNumber" },
+        { text: "客户名称", name: "wechatName" },
         { text: "充值日期", name: "" },
         { text: "金额", name: "" },
         { text: "充值前余额", name: "" },

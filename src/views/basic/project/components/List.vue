@@ -6,7 +6,6 @@
       :loading="loading"
       :list="list"
       index
-      type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
@@ -17,7 +16,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { getPlayList, deletePlay} from "@/api/basic/index";
+import { getProjectList, deleteProject} from "@/api/basic/index";
 import List from "@/components/List";
 
 export default {
@@ -36,10 +35,11 @@ export default {
       type: null,
       checkDate:null,
       columns: [
-        { text: "美容项目", name: "" },
-        { text: "车型", name: "" },
-        { text: "标准费用", name: "" },
-        { text: "状态", name: "" },
+        { text: "美容项目", name: "cosmetologyPoject" },
+        { text: "车型", name: "carModel" },
+        { text: "标准费用", name: "standardPrice" },
+        { text: "提成金额", name: "commissionPrice" },
+        { text: "状态", name: "status" },
       ]
     };
   },
@@ -56,7 +56,7 @@ export default {
       this.$emit('uploadList')
     },
     Delivery(val) {
-      deletePlay(val).then(res => {
+      deleteProject(val).then(res => {
         if(res.flag){
           this.$store.dispatch("list/setClickData", '');
           this.$emit('uploadList')
@@ -81,7 +81,7 @@ export default {
       pageSize: this.list.size || 50
     }) {
       this.loading = true;
-      getPlayList(data, val).then(res => {
+      getProjectList(data, val).then(res => {
         this.loading = false
         this.list = res.data
       })

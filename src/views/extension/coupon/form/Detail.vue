@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
-      <el-row :gutter="20">
+      <!--<el-row :gutter="20">
         <el-col :span="24">
           <el-form-item label="优惠券类型">
             <el-radio-group v-model="form.type">
@@ -11,7 +11,7 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row>-->
       <el-row :gutter="20">
         <el-col :span="24">
           <el-form-item :label="'优惠券名称'" prop="title">

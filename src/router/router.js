@@ -17,6 +17,7 @@ const map = {
   'memberInformation': () => import('@/views/member/memberInformation'),
   'groupExchange': () => import('@/views/member/groupExchange'),
   'recharge': () => import('@/views/member/recharge'),
+  'memberCard': () => import('@/views/member/memberCard'),
 
   'users': () => import('@/views/system/users'),
   'paylog': () => import('@/views/system/paylog'),

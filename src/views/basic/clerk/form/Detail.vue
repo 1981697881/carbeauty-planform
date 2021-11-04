@@ -15,10 +15,8 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'所属影城'" prop="storeId">
-            <el-select v-model="form.storeId" class="width-full"  placeholder="请选择影城">
-              <el-option :label="t.storeName" :value="t.id" v-for="(t,i) in pArray" :key="i"></el-option>
-            </el-select>
+          <el-form-item :label="'微信关联'" prop="username">
+            <el-input v-model="form.username" :disabled="true"><el-button slot="append" icon="el-icon-search" @click="query"></el-button></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -40,6 +38,40 @@
         </el-col>
       </el-row>
     </el-form>
+    <el-dialog
+      :visible.sync="visible"
+      title="微信用户"
+      v-if="visible"
+      :width="'50%'"
+      destroy-on-close
+      append-to-body
+    >
+      <el-form ref="postform" label-width="80px" :size="'mini'">
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item label-width="0">
+              <el-input v-model="username" placeholder="名称"><el-button slot="append" icon="el-icon-search" @click="fetchFormat"></el-button></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :span="20">
+          <el-col :span="24">
+            <el-table class="list-main" height="200px" :data="list" border size="mini" :highlight-current-row="true"
+                      @row-dblclick="dblclick">
+              <el-table-column
+                v-for="(t,i) in columns"
+                :key="i"
+                align="center"
+                :prop="t.name"
+                :label="t.text"
+                v-if="t.default!=undefined?t.default:true"
+                :width="t.width?t.width:''"
+              ></el-table-column>
+            </el-table>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-dialog>
     <div slot="footer" style="text-align:center">
         <el-button type="primary" @click="saveData('form')">保存</el-button>
       </div>
@@ -47,7 +79,8 @@
 </template>
 
 <script>
-import { addClerk, alterClerk, storesForm, clerkInfo,getFrameList } from "@/api/basic/index";
+import { addClerk, alterClerk, clerkInfo } from "@/api/basic/index";
+import { getMemberList } from "@/api/member/index";
 export default {
   props: {
       listInfo: {
@@ -62,11 +95,26 @@ export default {
         jobNum: null,
         address: null,
         tel: null,
-        storeId: null,
+        uid: null,
+        username: null,
         remark: null,
         name: null,// 名称
       },
+      list: [],
+      columns: [
+        {text: "会员名称", name: "username"},
+        {text: "微信号", name: "wechatId"},
+        {text: "联系地址", name: "adress"},
+        {text: "联系电话", name: "phoneNumber"},
+        {text: "注册时间", name: "createDatetime"},
+        {text: "最后登录时间", name: "editDatetime"},
+        {text: "生日", name: "birthday"},
+        {text: "性别", name: "sex"},
+        {text: "描述", name: "describes"},
+      ],
       disPl: true,
+      visible: null,
+      username: '',
       pidS: [],
       pArray: [],
       rArray: [],
@@ -78,19 +126,18 @@ export default {
         name: [
           {required: true, message: '请输入名稱', trigger: 'blur'},
         ],
-        storeId: [
-          {required: true, message: '请选择', trigger: 'change'},
-        ],
       },
     };
   },
   mounted() {
-    this.fetchFormat()
     if (this.listInfo) {
       this.form = this.listInfo
     }
   },
   methods: {
+    query(){
+      this.visible = true
+    },
     saveData(form) {
       this.$refs[form].validate((valid) => {
         // 判断必填项
@@ -111,18 +158,20 @@ export default {
         }
       })
     },
-    // 切换类别
-    selectChange(val) {
-      this.disPl = false
-      this.form.plId = null
-      this.rArray = []
-      this.fetchLine(val)
+    dblclick(obj) {
+      this.visible = false;
+      this.form.username = obj.username;
+      this.form.uid = obj.uid;
     },
     fetchFormat() {
-      storesForm().then(res => {
-        this.pArray = res.data
+      const data = {
+        pageNum: 1,
+        pageSize: 50,
+      };
+      getMemberList(data, {username: this.username}).then(res => {
+        this.list = res.data.records
       });
-      },
+    },
     fetchData(val) {
       clerkInfo(val).then(res => {
         this.form = res.data;

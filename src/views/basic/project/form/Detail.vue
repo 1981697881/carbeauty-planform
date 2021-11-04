@@ -3,27 +3,38 @@
     <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'美容项目'" prop="playName">
-            <el-input v-model="form.playName"></el-input>
+          <el-form-item :label="'美容项目'" prop="cosmetologyPoject">
+            <el-input v-model="form.cosmetologyPoject"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'车型'" prop="storeId">
-            <el-select v-model="form.storeId" class="width-full"  placeholder="请选择车型">
-              <el-option :label="t.name" :value="t.id" v-for="(t,i) in pArray" :key="i"></el-option>
+          <el-form-item :label="'车型'" prop="carModel">
+            <el-select v-model="form.carModel" class="width-full"  placeholder="请选择车型">
+              <el-option :label="t.label" :value="t.value" v-for="(t,i) in pArray" :key="i"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'标准费用'" prop="playName">
-            <el-input-number v-model="form.playName" :min="1"></el-input-number>
+          <el-form-item :label="'标准费用'" prop="standardPrice">
+            <el-input-number v-model="form.standardPrice" :min="1"></el-input-number>
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'说明'" prop="playName">
-            <el-input v-model="form.playName"></el-input>
+          <el-form-item :label="'项目提成'" prop="commissionPrice">
+            <el-input-number v-model="form.commissionPrice" :min="1"></el-input-number>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item :label="'是否启用'" prop="status">
+            <el-switch
+              v-model="form.status"
+              active-value="0"
+              inactive-value="1">
+            </el-switch>
           </el-form-item>
         </el-col>
       </el-row>
@@ -92,7 +103,7 @@
 </template>
 
 <script>
-  import {addPlay} from "@/api/basic/index";
+  import {addProject} from "@/api/basic/index";
   import { quillEditor } from 'vue-quill-editor'
   import quillConfig from '@/quill-config.js'
   import 'quill/dist/quill.core.css'
@@ -129,29 +140,30 @@
         limitStill: 3,
         nowImg: [],
         form: {
-         /* playName: null,
-          playPhoto: null,
-          playPosterphotoList: [],
-          playTxt: null,*/
+          carModel: null,
+          commissionPrice: null,
+          cosmetologyPoject: null,
+          status: '0',
+          standardPrice: null,
         },
         videoFlag: false,
         videoUploadPercent: 0,
         pArray: [
-          {id: 0,name: '五座'},
-          {id: 1,name: 'SUV/商务车'}
+          {value: '五座',label: '五座'},
+          {value: 'SUV/商务车',label: 'SUV/商务车'}
         ],
         rules: {
-          filmName: [
-            {required: true, message: '请输入', trigger: 'blur'}
+          cosmetologyPoject: [
+            {required: true, message: '请输入', trigger: 'blur'},
           ],
         },
       };
     },
     mounted() {
-      this.fileUrl  = `${window.location.origin}/web/file/imgUpload`
+     /* this.fileUrl  = `${window.location.origin}/web/file/imgUpload`*/
       if (this.listInfo) {
         this.form = this.listInfo
-        this.pictureList = []
+      /*  this.pictureList = []
         if(this.form.playPhoto != null && this.form.playPhoto.length>0){
           this.pictureList.push({
             url: this.$store.state.user.url+'/movie/uploadFiles/image/' + this.form.playPhoto
@@ -176,7 +188,7 @@
           }
         } else {
           this.stillList = [];
-        }
+        }*/
       }
     },
     methods: {
@@ -255,7 +267,7 @@
            // if(this.form.playPhoto){
               //修改
               let param = this.form
-              addPlay(param).then(res => {
+            addProject(param).then(res => {
                 this.$emit('hideDialog', false)
                 this.$emit('uploadList')
               });

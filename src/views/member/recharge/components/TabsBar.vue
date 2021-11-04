@@ -21,7 +21,7 @@
         </el-col>
         <el-col :span="4">
           <el-form-item :label="'关键字'">
-            <el-input v-model="search.memberCdkeyId" placeholder="名称"/>
+            <el-input v-model="search.phoneNumber" placeholder="手机号码"/>
           </el-form-item>
         </el-col>
         <el-col :span="2">
@@ -78,7 +78,7 @@ export default {
       value: '',
       btnList: [],
       search: {
-        memberCdkeyId: null
+        phoneNumber: null
       }
     };
   },
@@ -96,7 +96,7 @@ export default {
     // 查询条件过滤
     qFilter() {
       let obj = {}
-      this.search.memberCdkeyId != null && this.search.memberCdkeyId != '' ? obj.memberCdkeyId = this.search.memberCdkeyId : null
+      this.search.phoneNumber != null && this.search.phoneNumber != '' ? obj.phoneNumber = this.search.phoneNumber : null
       this.value != null && this.value != undefined ? obj.endDateTime = this.value[1] : null
       this.value != null && this.value != undefined ? obj.createDateTime = this.value[0] : null
       return obj

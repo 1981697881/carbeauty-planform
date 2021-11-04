@@ -15,12 +15,10 @@
 
   </div>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { getTicketList} from "@/api/workbench/index";
 import List from "@/components/List";
-
 export default {
   components: {
     List

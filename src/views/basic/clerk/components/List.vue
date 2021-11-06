@@ -36,12 +36,11 @@ export default {
         { text: "职员工号", name: "jobNum" },
         { text: "职员名称", name: "name" },
         { text: "用户名称", name: "username" },
-        { text: "微信昵称", name: "" },
-        { text: "所属门店", name: "storeName" },
+        { text: "微信昵称", name: "wechatName" },
         { text: "联系地址", name: "address" },
         { text: "联系电话", name: "tel" },
         { text: "描述", name: "remark" },
-        { text: "状态", name: "disableDesc" },
+        { text: "是否开单", name: "disableDesc" },
       ]
     };
   },

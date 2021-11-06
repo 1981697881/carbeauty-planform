@@ -15,8 +15,8 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'微信关联'" prop="username">
-            <el-input v-model="form.username" :disabled="true"><el-button slot="append" icon="el-icon-search" @click="query"></el-button></el-input>
+          <el-form-item :label="'微信关联'" prop="wechatName">
+            <el-input v-model="form.wechatName" :disabled="true"><el-button slot="append" icon="el-icon-search" @click="query"></el-button></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -34,6 +34,17 @@
         <el-col :span="12">
           <el-form-item :label="'描述'" >
             <el-input v-model="form.remark"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item :label="'是否开单'" >
+              <el-switch
+                v-model="form.disable"
+                :active-value=false
+                :inactive-value=true>
+              </el-switch>
           </el-form-item>
         </el-col>
       </el-row>
@@ -96,6 +107,7 @@ export default {
         address: null,
         tel: null,
         uid: null,
+        disable: true,
         username: null,
         remark: null,
         name: null,// 名称
@@ -160,7 +172,7 @@ export default {
     },
     dblclick(obj) {
       this.visible = false;
-      this.form.username = obj.username;
+      this.form.wechatName = obj.username;
       this.form.uid = obj.uid;
     },
     fetchFormat() {

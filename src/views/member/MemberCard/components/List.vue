@@ -35,6 +35,8 @@ export default {
       columns: [
         { text: "会员卡号", name: "" },
         { text: "会员名称", name: "vipName" },
+        { text: "车牌号", name: "carNumber" },
+        { text: "车型", name: "carModel" },
         { text: "微信号", name: "wechatId" },
         { text: "联系电话", name: "phoneNumber" },
         { text: "余额", name: "balance" },

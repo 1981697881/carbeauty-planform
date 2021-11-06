@@ -14,6 +14,20 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
+        <el-col :span="12">
+            <el-form-item :label="'车牌号'" prop="carNumber">
+              <el-input v-model="form.carNumber"></el-input>
+            </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item :label="'车型'" prop="carModel">
+            <el-select v-model="form.carModel" class="width-full"  placeholder="请选择车型">
+              <el-option :label="t.label" :value="t.value" v-for="(t,i) in pArray" :key="i"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
         <el-col :span="24">
           <el-form-item :label="'会员信息'" prop="orgAttr">
             <div style="margin-top: 20px;margin-bottom: 10px">
@@ -77,7 +91,9 @@
       return {
         form: {
           phoneNumber: null,
+          carNumber: null,
           vipName: null,
+          carModel: null,
         },
         list: [],
         columns: [
@@ -91,16 +107,27 @@
           {text: "性别", name: "sex"},
           {text: "描述", name: "describes"},
         ],
+        pArray: [
+          {value: '五座',label: '五座'},
+          {value: 'SUV/商务车',label: 'SUV/商务车'}
+        ],
         value1: '',
         username: '',
         visible: null,
         rules: {
-          phoneNumber: [
-            {required: true, message: '请输入', trigger: 'blur'},
-          ],
-          vipName: [
-            {required: true, message: '请输入', trigger: 'blur'},
-          ],
+            phoneNumber: [
+              {required: true, message: '请输入', trigger: 'blur'},
+            ],
+            carNumber: [
+              {required: true, message: '请输入', trigger: 'blur'},
+              { validator: this.isVehicleNumber,message: '请输入正确格式的车牌号', trigger: "blur" },
+            ],
+            vipName: [
+              {required: true, message: '请输入', trigger: 'blur'},
+            ],
+            carModel: [
+              {required: true, message: '请选择', trigger: 'change'},
+            ],
         },
       };
     },
@@ -112,6 +139,14 @@
       }
     },
     methods: {
+      isVehicleNumber(rule, value, callback) {
+        let reg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$/
+        if (!reg.test(value)) {
+          callback(new Error())
+        } else {
+          callback()
+        }
+      },
       setRow() {
         this.visible = true
       },

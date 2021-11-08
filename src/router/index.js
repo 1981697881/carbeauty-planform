@@ -99,6 +99,24 @@ export const StaticRouterMap = [{
     ]
   },
   {
+    path: '/commodity',
+    component: Layout,
+    name: 'Commodity',
+    meta: {
+      title: '商品管理',
+      icon: 'component'
+    },
+    children: [{
+      path: 'gameCurrency',
+      component: () => import('@/views/commodity/gameCurrency/index'),
+      name: 'GameCurrency',
+      meta: {
+        title: '套餐管理'
+      },
+    }
+    ]
+  },
+  {
     path: '/extension',
     component: Layout,
     name: 'Extension',

@@ -18,6 +18,7 @@ const map = {
   'groupExchange': () => import('@/views/member/groupExchange'),
   'recharge': () => import('@/views/member/recharge'),
   'memberCard': () => import('@/views/member/memberCard'),
+  'gameCurrency': () => import('@/views/commodity/gameCurrency'),
 
   'users': () => import('@/views/system/users'),
   'paylog': () => import('@/views/system/paylog'),

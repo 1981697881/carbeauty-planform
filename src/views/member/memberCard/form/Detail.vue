@@ -27,7 +27,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
+     <!-- <el-row :gutter="20">
         <el-col :span="24">
           <el-form-item :label="'会员信息'" prop="orgAttr">
             <div style="margin-top: 20px;margin-bottom: 10px">
@@ -35,7 +35,7 @@
             </div>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row>-->
     </el-form>
     <el-dialog
       :visible.sync="visible"

@@ -36,7 +36,7 @@ export default {
         { text: "消费时间", name: "createDate" },
         { text: "车牌", name: "carNumber" },
         { text: "客户手机", name: "phoneNumber" },
-        { text: "客户名称", name: "wechatName" },
+        { text: "客户名称", name: "vipName" },
         { text: "操作人员", name: "employeeName" },
         { text: "美容项目", name: "cosmetologyName" },
         { text: "费用", name: "settlementPrice" },

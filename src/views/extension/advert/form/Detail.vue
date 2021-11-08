@@ -162,12 +162,12 @@ export default {
     };
   },
   mounted() {
-    this.fileUrl  = `${window.location.origin}/web/file/imgUpload`
+    this.fileUrl  = `${window.location.origin}/cleancar/file/imgUpload`
     if (this.listInfo) {
       this.form = this.listInfo
       if(this.listInfo.posterPhoto != null){
         this.fileList.push({
-          url: this.$store.state.user.url+'/movie/uploadFiles/image/' + this.listInfo.posterPhoto
+          url: this.listInfo.posterPhoto
         })
         this.value =[this.listInfo.posterStartdatetime,this.listInfo.posterEnddatetime]
         this.hideUpload = true

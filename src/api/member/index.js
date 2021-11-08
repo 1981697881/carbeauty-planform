@@ -16,6 +16,19 @@ export function getMemberList(params, data) {
     data: data
   })
 }
+// 账表统计-获取列表
+export function getReportFormList(params, data) {
+  const url = '/orderCar/reportForm/' + params.pageNum + '/' + params.pageSize
+  return request({
+    url: url,
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    data: data
+  })
+}
 // 会员信息-充值列表
 export function getRechargeList(params, data) {
   const url = '/logsRecharge/logsRechargeList/' + params.pageNum + '/' + params.pageSize

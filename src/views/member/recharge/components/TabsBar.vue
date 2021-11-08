@@ -2,7 +2,7 @@
   <div class="list-header">
     <el-form v-model="search" :size="'mini'" :label-width="'80px'">
       <el-row :gutter="10">
-        <el-col :span="6" style="display: inline-block">
+        <!--<el-col :span="6" style="display: inline-block">
           <el-form-item :label="'日期'">
             <el-date-picker
               v-model="value"
@@ -18,7 +18,7 @@
               :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
-        </el-col>
+        </el-col>-->
         <el-col :span="4">
           <el-form-item :label="'关键字'">
             <el-input v-model="search.phoneNumber" placeholder="手机号码"/>

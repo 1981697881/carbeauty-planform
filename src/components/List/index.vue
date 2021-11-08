@@ -42,7 +42,7 @@
           align="center"
         >
           <template width="90" slot-scope="scope">
-            <img style="width:80px;height:80px;border:none;" :src=" fileUrl+scope.row.posterPhoto">
+            <img style="width:80px;height:80px;border:none;" :src="scope.row.posterPhoto">
           </template>
         </el-table-column>
       </template>
@@ -214,7 +214,7 @@ export default {
           if(flag){
             return sums[index] = ""
           }else{
-            if(column.property == 'num' ||  column.property == 'evenNum'|| column.property == 'adjNum'|| column.property == 'pastNum'|| column.property == 'nowNum') {
+            if(column.property == 'settlementPrice' ||  column.property == 'evenNum'|| column.property == 'adjNum'|| column.property == 'pastNum'|| column.property == 'nowNum') {
               sums[index] = values.reduce((total, item) => total + item);
               sums[index] = Math.round(sums[index] * 100) / 100;
               sums[index] += ""

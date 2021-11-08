@@ -61,7 +61,7 @@
             </el-table>
           </el-row>
         </el-tab-pane>
-        <el-tab-pane label="用户权限" name="second">
+       <!-- <el-tab-pane label="用户权限" name="second">
           <el-row  style="height: 250px;overflow: auto;border: 1px solid #EBEEF5;">
             <el-tree
               ref="tree1"
@@ -75,7 +75,7 @@
               :expand-on-click-node="false"
             />
           </el-row>
-        </el-tab-pane>
+        </el-tab-pane>-->
       </el-tabs>
     </el-form>
     <div slot="footer" style="text-align:center;padding-top: 15px">
@@ -148,7 +148,7 @@
         mounted() {
           this.factchGroup()
           this.fetchFormat()
-          this.fetchMenu()
+          /*this.fetchMenu()*/
         },
         methods: {
           changeCheck(val) {
@@ -191,7 +191,7 @@
                         obj.status = 4
                       }
                       obj.gids = gids
-                      obj.mids = this.getChecked()
+                      /*obj.mids = this.getChecked()*/
                         if (typeof (this.form.uid) != undefined && this.form.uid != null) {
                           alterUsers(obj).then(res => {
                                 this.$emit('hideDialog', false)

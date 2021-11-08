@@ -35,7 +35,7 @@ export default {
       columns: [
         { text: "职员工号", name: "jobNum" },
         { text: "职员名称", name: "name" },
-        { text: "用户名称", name: "username" },
+        /*{ text: "用户名称", name: "username" },*/
         { text: "微信昵称", name: "wechatName" },
         { text: "联系地址", name: "address" },
         { text: "联系电话", name: "tel" },

@@ -113,14 +113,14 @@ export const StaticRouterMap = [{
       meta: {
         title: '广告管理'
       },
-    }, {
+    }, /*{
       path: 'coupon',
       component: () => import('@/views/extension/coupon/index'),
       name: 'Coupon',
       meta: {
         title: '优惠券管理'
       },
-    }]
+    }*/]
   },
   {
     path: '/member',
@@ -131,14 +131,14 @@ export const StaticRouterMap = [{
       icon: "component"
     },
     children: [
-      {
+      /*{
         path: 'memberInformation',
         component: () => import('@/views/member/memberInformation/index'),
         name: 'MemberInformation',
         meta: {
           title: '会员信息'
         },
-      }, {
+      }, */{
         path: 'memberCard',
         component: () => import('@/views/member/memberCard/index'),
         name: 'MemberCard',

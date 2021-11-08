@@ -9,15 +9,13 @@
       type
       @handle-size="handleSize"
       @handle-current="handleCurrent"
-      @dblclick="dblclick"
-       @row-click="rowClick"
     />
 
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { getTicketList} from "@/api/workbench/index";
+import { getReportFormList} from "@/api/member/index";
 import List from "@/components/List";
 export default {
   components: {
@@ -31,12 +29,12 @@ export default {
       loading: false,
       list: {},
       columns: [
-        { text: "日期", name: "",sort: true },
-        { text: "车牌号", name: "" },
-        { text: "车型", name: "" },
-        { text: "美容项目", name: "" },
-        { text: "费用", name: "" },
-        { text: "收款方式", name: "",sort: true },
+        { text: "日期", name: "createDate",sort: true },
+        { text: "车牌号", name: "carNumber" },
+        { text: "车型", name: "carModel" },
+        { text: "美容项目", name: "cosmetologyName" },
+        { text: "费用", name: "settlementPrice" },
+        { text: "收款方式", name: "payType",sort: true },
       ]
     };
   },
@@ -101,9 +99,9 @@ export default {
       pageSize: this.list.size || 50
     }) {
       this.loading = true;
-        getTicketList(data, val).then(res => {
+      getReportFormList(data, val).then(res => {
         this.loading = false;
-        this.list = res.data;
+        this.list = res.data.orderCarVOPage;
       });
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <list
-       class="list-main box-shadow"
+      class="list-main box-shadow"
       :columns="columns"
       :loading="loading"
       :list="list"
@@ -10,15 +10,14 @@
       @handle-size="handleSize"
       @handle-current="handleCurrent"
       @dblclick="dblclick"
-       @row-click="rowClick"
+      @row-click="rowClick"
     />
-
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { getGoodsList, deleteCommodity} from "@/api/commodity/index";
+import { getPlayList, deletePlay} from "@/api/basic/index";
 import List from "@/components/List";
 
 export default {
@@ -31,33 +30,30 @@ export default {
   data() {
     return {
       loading: false,
+      visible: false,
       list: {},
+      fid: null,
+      type: null,
+      checkDate:null,
       columns: [
-        { text: "名称", name: "goodsName" },
-        { text: "价格", name: "goodsPrice" },
-        { text: "游戏币", name: "coinCount" },
-        { text: "积分", name: "integral" },
-        { text: "描述", name: "goodsDescribe" },
-        { text: "录入日期", name: "createDatetime" },
+        { text: "机台名称", name: "playName" },
       ]
     };
   },
+
   methods: {
-      //监听每页显示几条
-      handleSize(val) {
-          this.list.size = val
-        this.$emit('uploadList')
-      },
-      //监听当前页
-      handleCurrent(val) {
-          this.list.current = val
-        this.$emit('uploadList')
-      },
-    dblclick(obj) {
-      this.$emit('showDialog', obj.row)
+    // 监听每页显示几条
+    handleSize(val) {
+      this.list.size = val
+      this.$emit('uploadList')
+    },
+    // 监听当前页
+    handleCurrent(val) {
+      this.list.current = val
+      this.$emit('uploadList')
     },
     Delivery(val) {
-      deleteCommodity(val).then(res => {
+      deletePlay(val).then(res => {
         if(res.flag){
           this.$store.dispatch("list/setClickData", '');
           this.$emit('uploadList')
@@ -70,19 +66,22 @@ export default {
         pageSize: this.list.size || 50
       })
     },
-    //监听单击某一行
+    dblclick(obj) {
+      this.$emit('showDialog', obj.row)
+    },
+    // 监听单击某一行
     rowClick(obj) {
-      this.$store.dispatch("list/setClickData", obj.row);
+      this.$store.dispatch("list/setClickData", obj.row)
     },
     fetchData(val, data = {
       pageNum: this.list.current || 1,
       pageSize: this.list.size || 50
     }) {
       this.loading = true;
-        getGoodsList(data, val).then(res => {
-        this.loading = false;
-        this.list = res.data;
-      });
+      getPlayList(data, val).then(res => {
+        this.loading = false
+        this.list = res.data
+      })
     }
   }
 };

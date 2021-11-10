@@ -35,7 +35,7 @@ export default {
       type: null,
       checkDate:null,
       columns: [
-        { text: "美容项目", name: "cosmetologyPoject" },
+        { text: "美容项目", name: "cosmetologyProject" },
         { text: "车型", name: "carModel" },
         { text: "标准费用", name: "standardPrice" },
         { text: "提成金额", name: "commissionPrice" },

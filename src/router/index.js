@@ -98,7 +98,7 @@ export const StaticRouterMap = [{
       }
     ]
   },
-  {
+  /*{
     path: '/commodity',
     component: Layout,
     name: 'Commodity',
@@ -107,15 +107,15 @@ export const StaticRouterMap = [{
       icon: 'component'
     },
     children: [{
-      path: 'gameCurrency',
-      component: () => import('@/views/commodity/gameCurrency/index'),
-      name: 'GameCurrency',
+      path: 'machine',
+      component: () => import('@/views/commodity/machine/index'),
+      name: 'Machine',
       meta: {
         title: '套餐管理'
       },
     }
     ]
-  },
+  },*/
   {
     path: '/extension',
     component: Layout,

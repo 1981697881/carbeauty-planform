@@ -3,42 +3,12 @@
     <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'美容项目'" prop="cosmetologyProject">
-            <el-input v-model="form.cosmetologyProject"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item :label="'车型'" prop="carModel">
-            <el-select v-model="form.carModel" class="width-full"  placeholder="请选择车型">
-              <el-option :label="t.label" :value="t.value" v-for="(t,i) in pArray" :key="i"></el-option>
-            </el-select>
+          <el-form-item :label="'机台名称'" prop="playName">
+            <el-input v-model="form.playName"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item :label="'标准费用'" prop="standardPrice">
-            <el-input-number v-model="form.standardPrice" :min="1"></el-input-number>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item :label="'项目提成'" prop="commissionPrice">
-            <el-input-number v-model="form.commissionPrice" :min="1"></el-input-number>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item :label="'是否启用'" prop="status">
-            <el-switch
-              v-model="form.status"
-              active-value="0"
-              inactive-value="1">
-            </el-switch>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <!--<el-row :gutter="20">
         <el-col :span="24" style="text-align: center">
           <el-form-item :label="'封面照片'">
             <el-upload
@@ -90,11 +60,55 @@
           </el-form-item>
         </el-col>
       </el-row>
+      <!--<el-row :gutter="20">
+        <el-col :span="24" style="text-align: center">
+          <el-form-item :label="'电影剧照'">
+            <el-upload
+              :action="fileUrl"
+              list-type="picture-card"
+              accept="image/jpeg,image/jpg,image/png,image/gif"
+              :headers="headers"
+              :limit="1"
+              name="imgS"
+              :on-success="uploadStillSuccess"
+              :on-error="uploadError"
+              :class="{hide:hideStillUpload}"
+              :on-preview="handlePictureCardPreview"
+              :on-change="handleStillChange"
+              :file-list="stillList"
+              :before-upload="beforeUploadImage"
+              :on-remove="handleRemovet">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible" append-to-body size="tiny">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+          </el-form-item>
+        </el-col>
+      </el-row>-->
+      <!--<el-row :gutter="20">
+        <el-col :span="24" style="text-align: center">
+          <el-form-item label="电影预告" prop="Video">
+            &lt;!&ndash; action必选参数, 上传的地址 &ndash;&gt;
+            <el-upload class="avatar-uploader el-upload&#45;&#45;text" accept="video/*" :headers="headers" :action="fileUrl"
+                       :show-file-list="false" :on-success="handleVideoSuccess" :before-upload="beforeUploadVideo"
+                       :on-progress="uploadVideoProcess">
+              <video v-if="form.Video !='' && videoFlag == false" :src="form.Video" class="avatar" controls="controls">
+                您的浏览器不支持视频播放
+              </video>
+              <i v-else-if="form.Video =='' && videoFlag == false" class="el-icon-plus avatar-uploader-icon"></i>
+              <el-progress v-if="videoFlag == true" type="circle" :percentage="videoUploadPercent"
+                           style="margin-top:30px;"></el-progress>
+            </el-upload>
+            <P class="text">请保证视频格式正确，且不超过10M</P>
+          </el-form-item>
+        </el-col>
+      </el-row>-->
       <el-row :gutter="20">
         <el-col :span="24">
           <quill-editor v-model="form.playTxt"  :options="quillOption" style="height: 200px"></quill-editor>
         </el-col>
-      </el-row>-->
+      </el-row>
     </el-form>
     <div slot="footer" style="text-align:center;padding-top: 100px">
       <el-button type="primary" @click="saveData('form')">保存</el-button>
@@ -103,7 +117,7 @@
 </template>
 
 <script>
-  import {addProject} from "@/api/basic/index";
+  import {addPlay} from "@/api/basic/index";
   import { quillEditor } from 'vue-quill-editor'
   import quillConfig from '@/quill-config.js'
   import 'quill/dist/quill.core.css'
@@ -140,30 +154,26 @@
         limitStill: 3,
         nowImg: [],
         form: {
-          carModel: null,
-          commissionPrice: null,
-          cosmetologyProject: null,
-          status: '0',
-          standardPrice: null,
+          playName: null,
+          playPhoto: null,
+          playPosterphotoList: [],
+          playTxt: null,
         },
         videoFlag: false,
         videoUploadPercent: 0,
-        pArray: [
-          {value: '五座',label: '五座'},
-          {value: 'SUV/商务车',label: 'SUV/商务车'}
-        ],
+        pArray: [],
         rules: {
-          cosmetologyProject: [
-            {required: true, message: '请输入', trigger: 'blur'},
+          filmName: [
+            {required: true, message: '请输入', trigger: 'blur'}
           ],
         },
       };
     },
     mounted() {
-     /* this.fileUrl  = `${window.location.origin}/web/file/imgUpload`*/
+      this.fileUrl  = `${window.location.origin}/web/file/imgUpload`
       if (this.listInfo) {
         this.form = this.listInfo
-      /*  this.pictureList = []
+        this.pictureList = []
         if(this.form.playPhoto != null && this.form.playPhoto.length>0){
           this.pictureList.push({
             url: this.$store.state.user.url+'/movie/uploadFiles/image/' + this.form.playPhoto
@@ -188,10 +198,44 @@
           }
         } else {
           this.stillList = [];
-        }*/
+        }
       }
     },
     methods: {
+
+      beforeUploadVideo(file) {
+       /* if(this.form.filmId == null || this.form.filmId == ''){
+          this.$message({
+            message: '请先保存影讯信息，再上传视频',
+            type: "warning"
+          });
+          return false
+        }*/
+        const isLt10M = file.size / 1024 / 1024 < 20;
+        if (['video/mp4', 'video/ogg', 'video/flv', 'video/avi', 'video/wmv', 'video/rmvb'].indexOf(file.type) == -1) {
+          this.$message.error('请上传正确的视频格式');
+          return false;
+        }
+        if (!isLt10M) {
+          this.$message.error('上传视频大小不能超过20MB哦!');
+          return false;
+        }
+      },
+
+      uploadVideoProcess(event, file, fileList) {
+        this.videoFlag = true
+        this.videoUploadPercent = Math.floor(event.percent)
+      },
+      handleVideoSuccess(res, file) {                               //获取上传图片地址
+        this.videoFlag = false;
+        this.videoUploadPercent = 0;
+        if (res.status == 200) {
+          this.form.videoUploadId = res.data.uploadId;
+          this.form.Video = res.data.uploadUrl;
+        } else {
+          this.$message.error('视频上传失败，请重新上传！');
+        }
+      },
       //上传失败事件
       uploadError(res) {
         this.$message({
@@ -264,19 +308,20 @@
         this.$refs[form].validate((valid) => {
           //判断必填项
           if (valid) {
-           // if(this.form.playPhoto){
+            console.log(this.form)
+            if(this.form.playPhoto){
               //修改
               let param = this.form
-            addProject(param).then(res => {
+              addPlay(param).then(res => {
                 this.$emit('hideDialog', false)
                 this.$emit('uploadList')
               });
-            /*}else{
+            }else{
               this.$message({
                 message: '请上传图片',
                 type: "warning"
               });
-            }*/
+            }
           } else {
             return false;
           }

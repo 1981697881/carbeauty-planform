@@ -5,7 +5,7 @@ import {
 
 // 项目-获取列表
 export function getProjectList(params, data) {
-  const url = '/pojectCar/projectList/' + params.pageNum + '/' + params.pageSize
+  const url = '/projectCar/projectList/' + params.pageNum + '/' + params.pageSize
   return request({
     url: url,
     headers: {
@@ -19,7 +19,7 @@ export function getProjectList(params, data) {
 
 // 项目-新增
 export function addProject(params) {
-  const url = '/pojectCar/addProject'
+  const url = '/projectCar/addProject'
   return request({
     url: url,
     headers: {
@@ -34,7 +34,7 @@ export function addProject(params) {
 // 项目-删除
 export function deleteProject(params) {
   return request({
-    url: '/pojectCar/deleteProject',
+    url: '/projectCar/deleteProject',
     headers: {
       'authorization': getToken('cinerx'),
       'Content-Type': 'application/json'
@@ -115,5 +115,45 @@ export function delClerk(params) {
       'authorization': getToken('cinerx')
     },
     method: 'delete',
+  })
+}
+// 机台管理-获取列表
+export function getPlayList(params, data) {
+  const url = '/play/playList/' + params.pageNum + '/' + params.pageSize
+  return request({
+    url: url,
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    data: data
+  })
+}
+
+// 机台管理-新增
+export function addPlay(params) {
+  const url = '/play/addPlay'
+  return request({
+    url: url,
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    data: params
+  })
+}
+
+// 机台管理-删除
+export function deletePlay(params) {
+  return request({
+    url: '/play/deletePlay',
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    data: params,
+    method: 'post'
   })
 }

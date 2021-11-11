@@ -3,8 +3,13 @@
     <el-form :model="form" :rules="rules" ref="form" label-width="100px" :size="'mini'">
       <el-row :gutter="20">
         <el-col :span="12">
-          <el-form-item :label="'机台名称'" prop="playName">
+          <el-form-item :label="'套餐名称'" prop="playName">
             <el-input v-model="form.playName"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item :label="'套餐价格'" prop="playPrice">
+            <el-input-number v-model="form.playPrice"></el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
@@ -36,7 +41,7 @@
       </el-row>
       <el-row :gutter="20">
         <el-col :span="24" style="text-align: center">
-          <el-form-item :label="'机台海报'">
+          <el-form-item :label="'套餐海报'">
             <el-upload
               :action="fileUrl"
               list-type="picture-card"
@@ -117,7 +122,7 @@
 </template>
 
 <script>
-  import {addPlay} from "@/api/basic/index";
+  import {addPlay} from "@/api/basic/index"
   import { quillEditor } from 'vue-quill-editor'
   import quillConfig from '@/quill-config.js'
   import 'quill/dist/quill.core.css'
@@ -126,7 +131,6 @@
   import {
     getToken
   } from '@/utils/auth'
-
   export default {
     components: { quillEditor },
     props: {
@@ -155,6 +159,7 @@
         nowImg: [],
         form: {
           playName: null,
+          playPrice: 1,
           playPhoto: null,
           playPosterphotoList: [],
           playTxt: null,
@@ -170,13 +175,13 @@
       };
     },
     mounted() {
-      this.fileUrl  = `${window.location.origin}/web/file/imgUpload`
+      this.fileUrl  = `${window.location.origin}/cleancar/file/imgUpload`
       if (this.listInfo) {
         this.form = this.listInfo
         this.pictureList = []
         if(this.form.playPhoto != null && this.form.playPhoto.length>0){
           this.pictureList.push({
-            url: this.$store.state.user.url+'/movie/uploadFiles/image/' + this.form.playPhoto
+            url: this.form.playPhoto
           })
           this.hidePicture = true
         }else{
@@ -193,7 +198,7 @@
           this.stillList = []
           for (let i in this.form.playPosterphotoList) {
             this.stillList.push({
-              url: this.$store.state.user.url+'/movie/uploadFiles/image/' + this.form.playPosterphotoList[i]
+              url: this.form.playPosterphotoList[i]
             })
           }
         } else {
@@ -202,7 +207,6 @@
       }
     },
     methods: {
-
       beforeUploadVideo(file) {
        /* if(this.form.filmId == null || this.form.filmId == ''){
           this.$message({
@@ -221,12 +225,12 @@
           return false;
         }
       },
-
       uploadVideoProcess(event, file, fileList) {
         this.videoFlag = true
         this.videoUploadPercent = Math.floor(event.percent)
       },
-      handleVideoSuccess(res, file) {                               //获取上传图片地址
+      //获取上传图片地址
+      handleVideoSuccess(res, file) {
         this.videoFlag = false;
         this.videoUploadPercent = 0;
         if (res.status == 200) {
@@ -265,21 +269,23 @@
       //删除图片
       handleRemove(file, fileList) {
         let array = this.pictureList;
-        let img =file.url.split(this.$store.state.user.url+'/movie/uploadFiles/image/')[1]
+        console.log(file.url)
+        let img =file.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1]
             array.forEach((item,index)=>{
-              if (item.url.split(this.$store.state.user.url+'/movie/uploadFiles/image/')[1] == img) {
+              if (item.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1] == img) {
                 array.splice(index, 1);
               }
             })
-            this.$emit('uploadList')
+        this.$emit('uploadList')
         this.form.playPhoto= null
         this.hidePicture = false
       },
       handleRemovet(file, fileList) {
         let array = this.stillList;
-        let img =file.url.split(this.$store.state.user.url+'/movie/uploadFiles/image/')[1]
+        console.log(file.url)
+        let img =file.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1]
         array.forEach((item,index)=>{
-          if (item.url.split(this.$store.state.user.url+'/movie/uploadFiles/image/')[1] == img) {
+          if (item.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1] == img) {
             array.splice(index, 1);
           }
         })
@@ -326,9 +332,7 @@
             return false;
           }
         })
-
       },
-
     }
   };
 </script>

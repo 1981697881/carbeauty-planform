@@ -98,7 +98,7 @@ export const StaticRouterMap = [{
       }
     ]
   },
-  /*{
+  {
     path: '/commodity',
     component: Layout,
     name: 'Commodity',
@@ -115,7 +115,7 @@ export const StaticRouterMap = [{
       },
     }
     ]
-  },*/
+  },
   {
     path: '/extension',
     component: Layout,

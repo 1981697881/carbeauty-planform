@@ -36,7 +36,8 @@ export default {
       type: null,
       checkDate:null,
       columns: [
-        { text: "机台名称", name: "playName" },
+        { text: "套餐名称", name: "playName" },
+        { text: "套餐价格", name: "playPrice" },
       ]
     };
   },

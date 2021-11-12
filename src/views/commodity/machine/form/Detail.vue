@@ -7,9 +7,16 @@
             <el-input v-model="form.playName"></el-input>
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item :label="'套餐价格'" prop="playPrice">
             <el-input-number v-model="form.playPrice"></el-input-number>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item :label="'划线价'" prop="OriginalPrice">
+            <el-input-number v-model="form.OriginalPrice"></el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
@@ -160,6 +167,7 @@
         form: {
           playName: null,
           playPrice: 1,
+          OriginalPrice: 1,
           playPhoto: null,
           playPosterphotoList: [],
           playTxt: null,
@@ -269,10 +277,9 @@
       //删除图片
       handleRemove(file, fileList) {
         let array = this.pictureList;
-        console.log(file.url)
-        let img =file.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1]
+        let img =file.url
             array.forEach((item,index)=>{
-              if (item.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1] == img) {
+              if (item.url == img) {
                 array.splice(index, 1);
               }
             })
@@ -282,10 +289,9 @@
       },
       handleRemovet(file, fileList) {
         let array = this.stillList;
-        console.log(file.url)
-        let img =file.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1]
+        let img =file.url
         array.forEach((item,index)=>{
-          if (item.url.split(this.$store.state.user.url+'/uploadFiles/image/')[1] == img) {
+          if (item.url == img) {
             array.splice(index, 1);
           }
         })

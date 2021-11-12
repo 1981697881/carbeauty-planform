@@ -38,6 +38,7 @@ export default {
       columns: [
         { text: "套餐名称", name: "playName" },
         { text: "套餐价格", name: "playPrice" },
+        { text: "划线价", name: "OriginalPrice" },
       ]
     };
   },

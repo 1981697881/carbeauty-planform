@@ -4,7 +4,7 @@
       <el-row :gutter="10">
         <el-col :span="4">
           <el-form-item :label="'关键字'">
-            <el-input v-model="search.username" placeholder="名称,手机号码"/>
+            <el-input v-model="search.phoneNumber" placeholder="手机号码,车牌"/>
           </el-form-item>
         </el-col>
         <el-col :span="2">
@@ -151,7 +151,7 @@ export default {
     // 查询条件过滤
     qFilter() {
       let obj = {}
-      this.search.username != null && this.search.username != '' ? obj.username = this.search.username : null
+      this.search.phoneNumber != null && this.search.phoneNumber != '' ? obj.phoneNumber = this.search.phoneNumber : null
       return obj
     },
     handleAdd(){

@@ -15,8 +15,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item :label="'划线价'" prop="OriginalPrice">
-            <el-input-number v-model="form.OriginalPrice"></el-input-number>
+          <el-form-item :label="'划线价'" prop="originalPrice">
+            <el-input-number v-model="form.originalPrice"></el-input-number>
           </el-form-item>
         </el-col>
       </el-row>
@@ -167,7 +167,7 @@
         form: {
           playName: null,
           playPrice: 1,
-          OriginalPrice: 1,
+          originalPrice: 1,
           playPhoto: null,
           playPosterphotoList: [],
           playTxt: null,

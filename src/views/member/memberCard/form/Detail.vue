@@ -27,7 +27,8 @@
               <el-button @click="setRow">添加</el-button>
               <el-button @click="delRow">删除</el-button>
             </div>
-            <el-table class="list-main" height="200px" :data="form.vipCarmessageCars" border size="mini" :highlight-current-row="true"
+            <el-table class="list-main" height="200px" :data="form.vipCarmessageCars" border size="mini"
+                      :highlight-current-row="true"
                       @row-dblclick="dblclick" @row-click="rowClick">
               <el-table-column
                 v-for="(t,i) in columns"
@@ -73,6 +74,13 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item :label="'品牌'" prop="carBrand">
+              <el-input v-model="postform.carBrand"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer" style="text-align:center;padding-top: 15px">
         <el-button type="success" @click="confirm">确认</el-button>
@@ -86,6 +94,7 @@
 
 <script>
   import {addVip, getMemberList} from "@/api/member/index";
+
   export default {
     props: {
       listInfo: {
@@ -104,10 +113,12 @@
         postform: {
           carNumber: null,
           carModel: null,
+          carBrand: null,
         },
         columns: [
           {text: "车牌号", name: "carNumber"},
           {text: "车型", name: "carModel"},
+          {text: "品牌", name: "carBrand"},
         ],
         pArray: [
           {value: '五座', label: '五座'},
@@ -181,7 +192,7 @@
         }
       },
       dblclick(obj) {
-        this.visible = false;
+        this.visible = true;
         this.postform = obj;
       },
       saveData(form) {
@@ -204,46 +215,58 @@
           // 判断必填项
           if (valid) {
             me.visible = false
-            if(me.form.vipCarmessageCars.length >0){
-              me.form.vipCarmessageCars.forEach((item)=>{
-                if(item.carNumber != me.postform.carNumber){
-                  me.form.vipCarmessageCars.push({
-                    carNumber: me.postform.carNumber,
-                    carModel: me.postform.carModel,
-                    vipNumber: me.form.vipNumber,
-                  })
-                  me.checkData = null
-                }else{
-                  this.$message({
-                    message: '添加的车牌重复',
-                    type: 'warning'
-                  })
+            if (me.form.vipCarmessageCars.length > 0) {
+              let number = 0;
+              me.form.vipCarmessageCars.forEach((item) => {
+                if (item.carNumber == me.postform.carNumber) {
+                  number++;
                 }
               })
-            }else{
-              me.form.vipCarmessageCars.push({
-                carNumber: me.postform.carNumber,
-                carModel: me.postform.carModel,
-                vipNumber: me.form.vipNumber,
-              })
-              me.checkData = null
-            }
+              if (number == 0) {
+                me.form.vipCarmessageCars.push({
+                  carNumber: me.postform.carNumber,
+                  carModel: me.postform.carModel,
+                  carBrand: me.postform.carBrand,
+                  vipNumber: me.form.vipNumber,
+                })
+                me.checkData = null
+              } else {
+                return this.$message({
+                  message: '添加的车牌重复',
+                  type: 'warning'
+                })
+              }
           } else {
-            return false
+            me.form.vipCarmessageCars.push({
+              carNumber: me.postform.carNumber,
+              carModel: me.postform.carModel,
+              carBrand: me.postform.carBrand,
+              vipNumber: me.form.vipNumber,
+            })
+            me.checkData = null
           }
-        })
-      },
-      fetchFormat() {
-        const data = {
-          pageNum: 1,
-          pageSize: 50,
-        };
-        getMemberList(data, {}).then(res => {
-          this.list = res.data.records
-        });
-      },
-    }
-  };
+        }
+      else
+        {
+          return false
+        }
+      }
+  )
+  },
+  fetchFormat()
+  {
+    const data = {
+      pageNum: 1,
+      pageSize: 50,
+    };
+    getMemberList(data, {}).then(res => {
+      this.list = res.data.records
+    });
+  }
+  ,
+  }
+  }
+  ;
 </script>
 
 <style>

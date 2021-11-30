@@ -76,6 +76,13 @@ export const StaticRouterMap = [{
         meta: {
           title: '项目维护'
         },
+      },{
+        path: 'platform',
+        component: () => import('@/views/basic/platform/index'),
+        name: 'Platform',
+        meta: {
+          title: '付款平台'
+        },
       },
     ]
   },

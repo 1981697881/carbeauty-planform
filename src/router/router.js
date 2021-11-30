@@ -8,6 +8,7 @@ const map = {
   '/basic': () => import('@/layout'),
   'clerk': () => import('@/views/basic/clerk'),
   'project': () => import('@/views/basic/project'),
+  'platform': () => import('@/views/basic/platform'),
 
   'tickets': () => import('@/views/ticketing/tickets'),
 

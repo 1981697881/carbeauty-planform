@@ -157,3 +157,42 @@ export function deletePlay(params) {
     method: 'post'
   })
 }
+// 付款平台-获取列表
+export function getPayPlatformList(params, data) {
+  const url = '/payPlatform/payPlatformList/' + params.pageNum + '/' + params.pageSize
+  return request({
+    url: url,
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    data: data
+  })
+}
+// 付款平台-新增
+export function addPayPlatform(params) {
+  const url = '/payPlatform/addPayPlatform'
+  return request({
+    url: url,
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    method: 'post',
+    data: params
+  })
+}
+
+// 付款平台-删除
+export function deletePlatform(params) {
+  return request({
+    url: '/payPlatform/deletePlatform',
+    headers: {
+      'authorization': getToken('cinerx'),
+      'Content-Type': 'application/json'
+    },
+    data: params,
+    method: 'post'
+  })
+}
